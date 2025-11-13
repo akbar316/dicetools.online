@@ -32,33 +32,33 @@
     <!-- Google Site Verification -->
     <meta name="google-site-verification" content="YOUR_UNIQUE_VERIFICATION_CODE" />
 
-    <!-- Google Analytics (GA4) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-YOUR_MEASUREMENT_ID"></script>
+    <!-- Google Analytics (lazy-load) -->
+    <!-- The analytics script is loaded lazily after page load to avoid blocking rendering on mobile. Replace G-YOUR_MEASUREMENT_ID with your ID. -->
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'G-YOUR_MEASUREMENT_ID');
-    </script>
-
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            colors: {
-              'brand-bg': '#0f172a',
-              'brand-surface': '#1e293b',
-              'brand-border': '#334155',
-              'brand-text-primary': '#f8fafc',
-              'brand-text-secondary': '#94a3b8',
-              'brand-primary': '#38bdf8',
-              'brand-primary-hover': '#0ea5e9',
-            }
-          }
+      (function() {
+        function loadGtag() {
+          if (window.__gtagLoaded) return;
+          window.__gtagLoaded = true;
+          var s = document.createElement('script');
+          s.async = true;
+          s.src = 'https://www.googletagmanager.com/gtag/js?id=G-YOUR_MEASUREMENT_ID';
+          document.head.appendChild(s);
+          s.onload = function() {
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);} 
+            window.gtag = gtag;
+            gtag('js', new Date());
+            gtag('config', 'G-YOUR_MEASUREMENT_ID');
+          };
         }
-      }
+        // load after window load or after 3s as fallback
+        if (document.readyState === 'complete') setTimeout(loadGtag, 1000);
+        else window.addEventListener('load', function(){ setTimeout(loadGtag, 500); }, { once: true });
+        // also load on first user interaction
+        ['click','keydown','touchstart'].forEach(function(ev){
+          window.addEventListener(ev, loadGtag, { once: true, passive: true });
+        });
+      })();
     </script>
     <style>
       html {
@@ -227,20 +227,7 @@
         animation: progress-bar-fill 1.2s ease-out forwards;
       }
     </style>
-  <script type="importmap">
-{
-  "imports": {
-    "react/": "https://aistudiocdn.com/react@^19.2.0/",
-    "react": "https://aistudiocdn.com/react@^19.2.0",
-    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
-    "react-router-dom": "https://aistudiocdn.com/react-router-dom@^7.9.4",
-    "three": "https://aistudiocdn.com/three@^0.166.1/build/three.module.js",
-    "three/addons/": "https://aistudiocdn.com/three@^0.166.1/examples/jsm/",
-    "three/": "https://aistudiocdn.com/three@^0.166.1/",
-    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.27.0"
-  }
-}
-</script>
+    <!-- Removed importmap so Vite can bundle dependencies (faster, fewer external requests). -->
 <link rel="stylesheet" href="/index.css">
 </head>
   <body class="bg-brand-bg text-brand-text-primary">
