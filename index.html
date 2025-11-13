@@ -92,12 +92,8 @@
       }
 
       .typing-cursor {
-        display: inline-block;
-        width: 2px;
-        height: 1em;
-        background-color: #38bdf8;
-        animation: blink 0.7s infinite;
-        vertical-align: middle;
+        /* Hide the typing cursor to remove unwanted blinking caret on the site. */
+        display: none !important;
       }
 
       @keyframes blink {
