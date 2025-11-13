@@ -18,5 +18,19 @@ export default defineConfig(({ mode }) => {
         '@': path.resolve(__dirname, '.'),
       },
     },
+    build: {
+      chunkSizeWarningLimit: 1000,
+      rollupOptions: {
+        output: {
+          manualChunks(id) {
+            if (id.includes('node_modules')) {
+              if (id.includes('three')) return 'vendor_three';
+              if (id.includes('@google')) return 'vendor_google';
+              return 'vendor';
+            }
+          },
+        },
+      },
+    },
   };
 });
