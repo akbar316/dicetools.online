@@ -10,6 +10,21 @@ const app = express();
 app.use(cors());
 app.use(express.json({ limit: '10mb' }));
 
+// Basic security headers to improve Best Practices and reduce some Lighthouse warnings.
+app.use((req, res, next) => {
+  // Prevent clickjacking
+  res.setHeader('X-Frame-Options', 'DENY');
+  // Prevent MIME-type sniffing
+  res.setHeader('X-Content-Type-Options', 'nosniff');
+  // Basic XSS protection (legacy)
+  res.setHeader('X-XSS-Protection', '1; mode=block');
+  // Referrer policy
+  res.setHeader('Referrer-Policy', 'no-referrer-when-downgrade');
+  // HSTS - requires serving over HTTPS in production; safe for local dev
+  res.setHeader('Strict-Transport-Security', 'max-age=63072000; includeSubDomains; preload');
+  next();
+});
+
 const PORT = process.env.SERVER_PORT || 5000;
 
 // Server-side env names
