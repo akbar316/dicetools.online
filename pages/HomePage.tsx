@@ -88,6 +88,18 @@ const HomePage: React.FC = () => {
     return acc;
   }, {} as Record<ToolCategory, typeof tools>);
 
+  // Visible counts per category to limit initial DOM size on mobile.
+  const initialVisible = 8;
+  const [visibleCounts, setVisibleCounts] = useState<Record<string, number>>(() => {
+    const map: Record<string, number> = {};
+    availableCategories.forEach(cat => { map[cat] = initialVisible; });
+    return map;
+  });
+
+  const showMore = (category: string) => {
+    setVisibleCounts(prev => ({ ...prev, [category]: (prev[category] || initialVisible) + initialVisible }));
+  };
+
   const categoryOrder: ToolCategory[] = ['AI', 'PDF', 'Student', 'Text', 'Converters', 'Developer', 'SEO', 'Utility', 'Misc'];
   const availableCategories = categoryOrder.filter(cat => toolsByCategory[cat]?.length > 0);
 
@@ -187,10 +199,20 @@ const HomePage: React.FC = () => {
                 {categoryDisplayInfo[category].emoji} {categoryDisplayInfo[category].name}
               </h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                {toolsByCategory[category].map((tool) => (
+                {toolsByCategory[category].slice(0, visibleCounts[category] || initialVisible).map((tool) => (
                   <ToolCard key={tool.path} tool={tool} />
                 ))}
               </div>
+              {toolsByCategory[category].length > (visibleCounts[category] || initialVisible) && (
+                <div className="text-center mt-4">
+                  <button
+                    onClick={() => showMore(category)}
+                    className="px-4 py-2 rounded-full bg-brand-primary text-black font-semibold"
+                  >
+                    Show more
+                  </button>
+                </div>
+              )}
             </section>
         ))}
       </div>

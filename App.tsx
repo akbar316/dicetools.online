@@ -44,7 +44,9 @@ const ScrollToAnchor: React.FC = () => {
 
 
 const App: React.FC = () => {
-  const [animationEnabled, setAnimationEnabled] = useLocalStorage('animationEnabled', true);
+  // Enable animations by default only on larger screens to reduce mobile CPU/JS work.
+  const defaultAnimation = typeof window !== 'undefined' ? window.innerWidth > 768 : false;
+  const [animationEnabled, setAnimationEnabled] = useLocalStorage('animationEnabled', defaultAnimation);
   // Perform the WebGL check once on initial render and store the result in state.
   const [animationAvailable, setAnimationAvailable] = React.useState(() => isWebGLAvailable());
   
