@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="monetag" content="1c3ffe931239265cc82387aa66861316">
+    <meta charset="UTF-8" />
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DiceTools - Free Online Tools</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="A powerful suite of 80+ free online tools for text manipulation, data conversion, development, AI, PDF editing, and more. All tools are designed to be fast, secure, and accessible on any device." />
+    <meta name="keywords" content="free online tools, text manipulation, data conversion, developer tools, AI tools, PDF editor, SEO tools, utility tools, student tools, converters, project(true), dicetools" />
+    <meta name="author" content="DiceTools" />
+    <meta name="theme-color" content="#0f172a" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="DiceTools - Free Online Tools" />
+    <meta property="og:description" content="A powerful suite of 80+ free online tools for text manipulation, data conversion, development, AI, PDF editing, and more." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://dicetools.com/" />
+    <meta property="og:image" content="https://dicetools.com/og-image.png" />
+    <meta property="og:site_name" content="DiceTools" />
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="DiceTools - Free Online Tools" />
+    <meta name="twitter:description" content="A powerful suite of 80+ free online tools for text manipulation, data conversion, development, AI, PDF editing, and more." />
+    <meta name="twitter:image" content="https://dicetools.com/og-image.png" />
+
+    <!-- Google Site Verification -->
+    <meta name="google-site-verification" content="YOUR_UNIQUE_VERIFICATION_CODE" />
+
+    <!-- Google Analytics (GA4) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-YOUR_MEASUREMENT_ID"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-YOUR_MEASUREMENT_ID');
+    </script>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              'brand-bg': '#0f172a',
+              'brand-surface': '#1e293b',
+              'brand-border': '#334155',
+              'brand-text-primary': '#f8fafc',
+              'brand-text-secondary': '#94a3b8',
+              'brand-primary': '#38bdf8',
+              'brand-primary-hover': '#0ea5e9',
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+      html {
+        scroll-behavior: smooth;
+      }
+      
+      #three-canvas {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: -1;
+      }
+
+      @keyframes text-glow {
+        0%, 100% {
+          text-shadow: 0 0 5px #38bdf8, 0 0 10px #38bdf8, 0 0 15px #0ea5e9, 0 0 20px #0ea5e9;
+        }
+        50% {
+          text-shadow: 0 0 10px #38bdf8, 0 0 20px #0ea5e9, 0 0 30px #0ea5e9, 0 0 40px #0284c7;
+        }
+      }
+
+      .text-glow {
+        animation: text-glow 2.5s ease-in-out infinite;
+      }
+      
+      .logo-glow {
+        animation: text-glow 4s ease-in-out infinite;
+      }
+
+      .typing-cursor {
+        display: inline-block;
+        width: 2px;
+        height: 1em;
+        background-color: #38bdf8;
+        animation: blink 0.7s infinite;
+        vertical-align: middle;
+      }
+
+      @keyframes blink {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0; }
+      }
+      
+      .card-3d-container {
+        perspective: 1000px;
+      }
+      
+      .card-3d {
+        transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        transform-style: preserve-3d;
+        will-change: transform;
+      }
+
+      .card-3d-container:hover .card-3d {
+        transform: rotateY(var(--rotateY)) rotateX(var(--rotateX)) translateZ(20px);
+      }
+      
+      button[class*="bg-brand-primary"] {
+        transition: all 0.3s ease-in-out;
+      }
+      button[class*="bg-brand-primary"]:hover {
+        box-shadow: 0 0 5px #38bdf8, 0 0 15px #38bdf8, 0 0 25px #0ea5e9;
+      }
+      
+      footer a:hover svg {
+        transform: translateY(-3px) scale(1.1);
+        filter: drop-shadow(0 0 5px #38bdf8);
+      }
+      
+      footer a svg {
+        transition: transform 0.3s ease, filter 0.3s ease;
+      }
+      
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      
+      .animate-fade-in-up {
+        animation: fadeInUp 0.8s ease-out forwards;
+        opacity: 0; /* Start hidden */
+      }
+      
+      /* --- Dice Logo Styles --- */
+      .dice-logo-container {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem; /* 8px */
+      }
+      .dice-scene {
+        width: 28px;
+        height: 28px;
+        perspective: 600px;
+      }
+      .dice {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        transform-style: preserve-3d;
+        animation: rotate-dice 15s infinite linear;
+      }
+      .face {
+        position: absolute;
+        width: 28px;
+        height: 28px;
+        background-color: rgba(30, 41, 59, 0.8); /* brand-surface with transparency */
+        border: 1px solid #38bdf8; /* brand-primary */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .face-1 { transform: rotateY(0deg) translateZ(14px); }
+      .face-6 { transform: rotateY(180deg) translateZ(14px); }
+      .face-3 { transform: rotateY(90deg) translateZ(14px); }
+      .face-4 { transform: rotateY(-90deg) translateZ(14px); }
+      .face-2 { transform: rotateX(90deg) translateZ(14px); }
+      .face-5 { transform: rotateX(-90deg) translateZ(14px); }
+      
+      @keyframes rotate-dice {
+        from { transform: rotateX(0deg) rotateY(0deg); }
+        to { transform: rotateX(360deg) rotateY(360deg); }
+      }
+      
+      /* Pips */
+      .pip {
+        display: block; width: 5px; height: 5px;
+        border-radius: 50%; background-color: #38bdf8;
+        position: absolute;
+      }
+      .face-1 .pip-1 { top: 50%; left: 50%; transform: translate(-50%, -50%); }
+      .face-2 .pip-1 { top: 25%; left: 25%; transform: translate(-50%, -50%); }
+      .face-2 .pip-2 { top: 75%; left: 75%; transform: translate(-50%, -50%); }
+      .face-3 .pip-1 { top: 25%; left: 25%; transform: translate(-50%, -50%); }
+      .face-3 .pip-2 { top: 50%; left: 50%; transform: translate(-50%, -50%); }
+      .face-3 .pip-3 { top: 75%; left: 75%; transform: translate(-50%, -50%); }
+      .face-4 .pip-1 { top: 25%; left: 25%; transform: translate(-50%, -50%); }
+      .face-4 .pip-2 { top: 25%; left: 75%; transform: translate(-50%, -50%); }
+      .face-4 .pip-3 { top: 75%; left: 25%; transform: translate(-50%, -50%); }
+      .face-4 .pip-4 { top: 75%; left: 75%; transform: translate(-50%, -50%); }
+      .face-5 .pip-1 { top: 25%; left: 25%; transform: translate(-50%, -50%); }
+      .face-5 .pip-2 { top: 25%; left: 75%; transform: translate(-50%, -50%); }
+      .face-5 .pip-3 { top: 50%; left: 50%; transform: translate(-50%, -50%); }
+      .face-5 .pip-4 { top: 75%; left: 25%; transform: translate(-50%, -50%); }
+      .face-5 .pip-5 { top: 75%; left: 75%; transform: translate(-50%, -50%); }
+      .face-6 .pip-1 { top: 25%; left: 25%; transform: translate(-50%, -50%); }
+      .face-6 .pip-2 { top: 25%; left: 75%; transform: translate(-50%, -50%); }
+      .face-6 .pip-3 { top: 50%; left: 25%; transform: translate(-50%, -50%); }
+      .face-6 .pip-4 { top: 50%; left: 75%; transform: translate(-50%, -50%); }
+      .face-6 .pip-5 { top: 75%; left: 25%; transform: translate(-50%, -50%); }
+      .face-6 .pip-6 { top: 75%; left: 75%; transform: translate(-50%, -50%); }
+
+      @keyframes progress-bar-fill {
+        from { width: 0%; }
+        to { width: 100%; }
+      }
+      .animate-progress-bar {
+        animation: progress-bar-fill 1.2s ease-out forwards;
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "react-router-dom": "https://aistudiocdn.com/react-router-dom@^7.9.4",
+    "three": "https://aistudiocdn.com/three@^0.166.1/build/three.module.js",
+    "three/addons/": "https://aistudiocdn.com/three@^0.166.1/examples/jsm/",
+    "three/": "https://aistudiocdn.com/three@^0.166.1/",
+    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.27.0"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+  <body class="bg-brand-bg text-brand-text-primary">
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+  </body>
+</html>

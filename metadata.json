@@ -1,0 +1,25 @@
+{
+  "name": "project(true)",
+  "description": "A powerful suite of 80+ free online tools for text manipulation, data conversion, development, AI, PDF editing, and more. All tools are designed to be fast, secure, and accessible on any device.",
+  "requestFramePermissions": [],
+  "schema": {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "DiceTools - Free Online Tools",
+    "url": "https://dicetools.com/",
+    "description": "A powerful suite of 80+ free online tools for text manipulation, data conversion, development, AI, PDF editing, and more. All tools are designed to be fast, secure, and accessible on any device.",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "https://dicetools.com/#/?q={search_term_string}"
+      },
+      "query-input": "required name=search_term_string"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "DiceTools",
+      "url": "https://dicetools.com/"
+    }
+  }
+}
